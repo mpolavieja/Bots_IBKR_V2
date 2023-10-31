@@ -1,0 +1,15 @@
+{
+"client_tws": 11, 
+"reconnection_seconds": 150, 
+"actualize_status_seconds": 5, 
+"max_conection_loss_seconds": 310, 
+"debug_mode": true, 
+"google_sheets_document_id": "14PfzhKAYBoM9wPeHl6CYPI7G7hmNU47PLADXH6Bh_-g", 
+"google_sheets_credentials": "C:/NF_IBKR_Paper/grid_multiple/credentials.json",
+"dashboard_document_id": "14PfzhKAYBoM9wPeHl6CYPI7G7hmNU47PLADXH6Bh_-g", 
+"dashboard_credentials": "C:/NF_IBKR_Paper/grid_multiple/credentials.json", 
+"dashboard_realtime_level": 1, 
+"telegram_level": 1, 
+"telegram_token": "6092797629:AAGEIBIYhrprAQJkeiOTs3YOuwzg0pK-Jqg", 
+"telegram_chat_id": "-928805835"
+}

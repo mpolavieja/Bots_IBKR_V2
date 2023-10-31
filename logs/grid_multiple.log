@@ -1,0 +1,26 @@
+2023-10-31 15:49:57,554 INFO grid_multiple:<module>:0132 - BOT INICIADO! Se ha creado el Grid Bot Multiple
+2023-10-31 15:49:57,555 ERROR grid_multiple:update_configuration:0116 - Global configuration updated successfully from: "config.json"
+2023-10-31 15:49:57,561 INFO grid_multiple:<module>:0137 - Intentando conectar...
+2023-10-31 15:49:57,562 INFO grid_multiple:_connect_to_brocker:0065 - Intentando conectar...
+2023-10-31 15:49:58,062 INFO grid_multiple:_connect_to_brocker:0071 - BOT CONECTADO! Se ha logrado conectar
+2023-10-31 15:49:59,535 INFO core:cancel_all_orders:0266 - Se han cancelado 0 órdenes pendientes de todas las estrategias del cliente
+2023-10-31 15:50:02,224 ERROR grid_multiple:_onError:0103 - code 200: No security definition has been found for the request
+2023-10-31 15:50:09,422 ERROR grid_multiple:_onError:0103 - code 200: No security definition has been found for the request
+2023-10-31 15:52:08,716 INFO grid_multiple:<module>:0132 - BOT INICIADO! Se ha creado el Grid Bot Multiple
+2023-10-31 15:52:08,718 ERROR grid_multiple:update_configuration:0116 - Global configuration updated successfully from: "config.json"
+2023-10-31 15:52:08,724 INFO grid_multiple:<module>:0137 - Intentando conectar...
+2023-10-31 15:52:08,724 INFO grid_multiple:_connect_to_brocker:0065 - Intentando conectar...
+2023-10-31 15:52:09,162 INFO grid_multiple:_connect_to_brocker:0071 - BOT CONECTADO! Se ha logrado conectar
+2023-10-31 15:52:10,565 INFO core:cancel_all_orders:0266 - Se han cancelado 0 órdenes pendientes de todas las estrategias del cliente
+2023-10-31 15:53:13,546 INFO grid_multiple:<module>:0132 - BOT INICIADO! Se ha creado el Grid Bot Multiple
+2023-10-31 15:53:13,547 ERROR grid_multiple:update_configuration:0116 - Global configuration updated successfully from: "config.json"
+2023-10-31 15:53:13,551 INFO grid_multiple:<module>:0137 - Intentando conectar...
+2023-10-31 15:53:13,552 INFO grid_multiple:_connect_to_brocker:0065 - Intentando conectar...
+2023-10-31 15:53:13,969 INFO grid_multiple:_connect_to_brocker:0071 - BOT CONECTADO! Se ha logrado conectar
+2023-10-31 15:53:15,439 INFO core:cancel_all_orders:0266 - Se han cancelado 0 órdenes pendientes de todas las estrategias del cliente
+2023-10-31 16:01:54,917 INFO grid_multiple:<module>:0132 - BOT INICIADO! Se ha creado el Grid Bot Multiple
+2023-10-31 16:01:54,929 ERROR grid_multiple:update_configuration:0116 - Global configuration updated successfully from: "config.json"
+2023-10-31 16:01:54,931 INFO grid_multiple:<module>:0137 - Intentando conectar...
+2023-10-31 16:01:54,931 INFO grid_multiple:_connect_to_brocker:0065 - Intentando conectar...
+2023-10-31 16:01:55,357 INFO grid_multiple:_connect_to_brocker:0071 - BOT CONECTADO! Se ha logrado conectar
+2023-10-31 16:01:56,742 INFO core:cancel_all_orders:0266 - Se han cancelado 0 órdenes pendientes de todas las estrategias del cliente
