@@ -1,4 +1,5 @@
 import time
+import logging
 import pandas as pd
 from ib_insync import *
 from Ideas.DataBaseConfig import BBDDManager
@@ -70,7 +71,6 @@ class Connector():
     """
     def read_input_excel(self, route_excel):
         stocks_ticker = []
-  
         try:
             df = pd.read_excel(route_excel)
             stocks_ticker = df["Ticker"]
