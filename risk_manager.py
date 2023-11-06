@@ -1,11 +1,13 @@
-from ib_insync import *
-import telegram
-import write_google_sheets
-import logging
-import time
 import json
+import time
+import telegram
+import logging
+from ib_insync import *
+import write_google_sheets
 
 
+
+#Global Vars
 MAX_POSITION_GLOBAL = 600000 
 MAX_POSITION_CONTRACT = 300000
 MAX_POSITION_STRATEGY = 100000   # este numero me lo invente, debe ser cambiado OJO

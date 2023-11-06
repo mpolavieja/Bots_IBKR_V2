@@ -1,0 +1,15 @@
+{
+
+    "Database":{
+        "host":"127.0.0.1",
+        "username":"root",
+        "password":"pass",
+        "db_name":"ibkr_bot"
+    },
+    "APIDataConnection":{
+        "host":"127.0.0.1",
+        "port":7497,
+        "client_TWS":1,
+        "timeout":5
+    }
+}

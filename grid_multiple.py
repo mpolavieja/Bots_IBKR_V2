@@ -1,13 +1,13 @@
 
+import json
+import time
+import regex 
+import logging
+from core import Core
 from ib_insync import *
 from datetime import datetime
 
-from core import Core
-import logging
 from logging.handlers import TimedRotatingFileHandler
-import regex 
-import time
-import json
 
 # Identificador del google sheet Desarrollo (BotsIBKR): 
 #   '1JOe2rzWEkciQasrhjsVFVesUCMIe5BuQXaeRWD-0QV4'
@@ -50,6 +50,8 @@ def create_logger(name, fileName, filesCount, debugMode):
     logging.root.setLevel(logging.NOTSET)
     log.addHandler(handler)
     return log
+
+
 
 
 def _connect_to_brocker():
@@ -141,5 +143,5 @@ core.disconnectedEvent += _onDisconnected
 core.errorEvent += _onError
 core.execDetailsEvent += core.onExecDetailsEvent
 core.set_actualize_bot_status()
-core.run() 
+core.run()
 

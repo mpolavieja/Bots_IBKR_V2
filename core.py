@@ -3,23 +3,23 @@
 Crea un objeto que representa al broker o exchange.
 Esta clase extiende las propiedades y metodos de la clase IB de ib_insync.
 '''
-from ib_insync import *
-from order_id_manager import OrderIdManager
-from datetime import datetime, timedelta
-import ctypes
-from multi_parameters import MultiParameters
 import time
+import ctypes
+from ib_insync import *
 from risk_manager import RiskManager
+from datetime import datetime, timedelta
+from order_id_manager import OrderIdManager
+from multi_parameters import MultiParameters
 
 # Manuel. Esto se puede eliminar, ahora ya está toda esta funcionalidad en la clase Dashboard
-from write_google_sheets import write_orders_to_google_sheets, write_fill_to_google_sheets
-from dashboard import Dashboard
-import telegram
 import logging
+import telegram
+from dashboard import Dashboard
+from write_google_sheets import write_orders_to_google_sheets, write_fill_to_google_sheets
 
 
 ctypes.windll.kernel32.SetConsoleTitleW(__file__)
-
+#Cambia el título de la ventana de la consola en la que se está ejecutando el script de Python para que coincida con el nombre del archivo de script actual
 
 class Core(IB):
     def __init__(self, configuration):
@@ -107,7 +107,7 @@ class Core(IB):
     def get_contract_id(self, contract):
         '''
         Solicitar los detalles del contrato para obtener el conId.
-        contract: Objeto de conrato que puede ser Stock, Future, etc
+        contract: Objeto de contrato que puede ser Stock, Future, etc
         return: Devuelve el ID del contrato. SI ocurre error, reporta al log y devuelve None.
         '''
         try:
