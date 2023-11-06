@@ -37,7 +37,7 @@ class Connector():
                     contract,
                     endDateTime=dt,
                     durationStr='30 D',
-                    barSizeSetting='1 hour',
+                    barSizeSetting='30 mins',
                     whatToShow='TRADES',
                     #MIDPOINT-->
                     #TRADES-->
@@ -57,6 +57,7 @@ class Connector():
                     bars_data["LOW"] = bars_from_api[data].low
                     bars_data["CLOSE"] = bars_from_api[data].close
                     bars_data["CURRENCY"] = contract.currency
+                    bars_data["VOLUME"] = bars_from_api[data].volume
                     barsList.append(bars_data)
         except Exception as e:
             print(e)

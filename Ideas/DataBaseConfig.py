@@ -37,7 +37,8 @@ class BBDDManager():
                                     high DECIMAL(10, 2) NOT NULL,
                                     low DECIMAL(10, 2) NOT NULL,
                                     close DECIMAL(10, 2) NOT NULL,
-                                    currency VARCHAR(255) NOT NULL
+                                    currency VARCHAR(255) NOT NULL,
+                                    volume DECIMAL(10,2) NOT NULL
                                 )
                                 """
             
@@ -69,7 +70,7 @@ class BBDDManager():
 
 
     """
-    def insert_ohlc_data(self, table_name, symbol, datetime, open_price, high_price, low_price, close_price, currency):  
+    def insert_ohlc_data(self, table_name, symbol, datetime, open_price, high_price, low_price, close_price, currency, volume):  
         connection = mysql.connector.connect(
             host=self.host,
             user=self.username,
@@ -80,8 +81,8 @@ class BBDDManager():
         try:
             with connection:
                 cursor = connection.cursor()
-                sql = f"INSERT INTO {table_name} (symbol,datetime, open, high, low, close, currency) VALUES (%s, %s, %s, %s, %s, %s, %s)"
-                values = (symbol, datetime, open_price, high_price, low_price, close_price, currency)
+                sql = f"INSERT INTO {table_name} (symbol,datetime, open, high, low, close, currency, volume) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+                values = (symbol, datetime, open_price, high_price, low_price, close_price, currency, volume)
                 cursor.execute(sql, values)
                 connection.commit()
                 logging.info("OHLC data inserted successfully.")
