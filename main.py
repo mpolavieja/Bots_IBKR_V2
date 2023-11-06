@@ -23,15 +23,6 @@ except FileNotFoundError:
 
 
 
-"""
-DELETE LATER
-"""
-def thread_function(name):
-    logging.info("Thread %s: starting", name)
-    time.sleep(2)
-    logging.info("Thread %s: finishing", name)
-
-
 if __name__ == "__main__":
 
 
@@ -56,14 +47,16 @@ if __name__ == "__main__":
     path_to_excel = "Data\\5000_stocks.xlsx"
     tickers = DataDownloader.read_input_excel(path_to_excel)
 
-    bars_for_ticker = DataDownloader.query_data("AA")
-    for data in bars_for_ticker:
-        DDBB_Manager.insert_ohlc_data(table_name=config_data["Database"]["table_name"],
-                            symbol=data["TICKER"],
-                            datetime=data["DATE"],
-                            open_price=data["OPEN"],
-                            high_price=data["HIGH"],
-                            low_price=data["LOW"],
-                            close_price=data["CLOSE"],
-                            currency=data["CURRENCY"]
-                            )
+    for ticker in tickers:
+        bars_for_ticker = DataDownloader.query_data(ticker)
+        for data in bars_for_ticker:
+            DDBB_Manager.insert_ohlc_data(
+                                table_name=config_data["Database"]["table_name"],
+                                symbol=data["TICKER"],
+                                datetime=data["DATE"],
+                                open_price=data["OPEN"],
+                                high_price=data["HIGH"],
+                                low_price=data["LOW"],
+                                close_price=data["CLOSE"],
+                                currency=data["CURRENCY"]
+                                )

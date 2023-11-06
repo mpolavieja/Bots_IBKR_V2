@@ -32,13 +32,15 @@ class Connector():
         dt = ""
         try:
             contract =  Stock(stock, 'SMART', 'USD')#cambiar
-            self.ib_client.reqMarketDataType(4)
+            self.ib_client.reqMarketDataType(4) #Para que es esto?
             bars_from_api = self.ib_client.reqHistoricalData(
                     contract,
                     endDateTime=dt,
                     durationStr='30 D',
                     barSizeSetting='1 hour',
-                    whatToShow='MIDPOINT',
+                    whatToShow='TRADES',
+                    #MIDPOINT-->
+                    #TRADES-->
                     useRTH=False,
                     formatDate=1
             )
