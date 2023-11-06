@@ -1,8 +1,13 @@
 #import modules
 import json
+import asyncio
+import logging
+import time
+import threading
+import concurrent.futures
 from Ideas.DataBaseConfig import BBDDManager
 from Ideas.DataDownload import Connector
-#
+
 
 """
 Leer Datos del Config File
@@ -15,6 +20,16 @@ except FileNotFoundError:
     print(f"The config file '{config_file_path}' does not exist.")
     config_data = {}
 
+
+
+
+"""
+DELETE LATER
+"""
+def thread_function(name):
+    logging.info("Thread %s: starting", name)
+    time.sleep(2)
+    logging.info("Thread %s: finishing", name)
 
 
 if __name__ == "__main__":
@@ -34,16 +49,21 @@ if __name__ == "__main__":
         timeout = config_data["APIDataConnection"]["timeout"]
     )
 
-    bars = DataDownloader.query_data("Data\\5000_stocks.xlsx")
-    table_name = "OHLC_Data_IBKR"
-    for data in bars:
-        print(str(data)+ "\t")
-        DDBB_Manager.insert_ohlc_data(table_name=table_name,
-                                symbol=data["TICKER"],
-                                datetime=data["DATE"],
-                                open_price=data["OPEN"],
-                                high_price=data["HIGH"],
-                                low_price=data["LOW"],
-                                close_price=data["CLOSE"],
-                                currency=data["CURRENCY"]
-                                )
+    """
+    PATH EXCEL
+
+    """
+    path_to_excel = "Data\\5000_stocks.xlsx"
+    tickers = DataDownloader.read_input_excel(path_to_excel)
+
+    bars_for_ticker = DataDownloader.query_data("AA")
+    for data in bars_for_ticker:
+        DDBB_Manager.insert_ohlc_data(table_name=config_data["Database"]["table_name"],
+                            symbol=data["TICKER"],
+                            datetime=data["DATE"],
+                            open_price=data["OPEN"],
+                            high_price=data["HIGH"],
+                            low_price=data["LOW"],
+                            close_price=data["CLOSE"],
+                            currency=data["CURRENCY"]
+                            )
