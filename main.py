@@ -58,5 +58,6 @@ if __name__ == "__main__":
                                 high_price=data["HIGH"],
                                 low_price=data["LOW"],
                                 close_price=data["CLOSE"],
-                                currency=data["CURRENCY"]
+                                currency=data["CURRENCY"],
+                                volume=data["VOLUME"]
                                 )

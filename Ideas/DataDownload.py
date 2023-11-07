@@ -52,7 +52,7 @@ class Connector():
                     contract,
                     endDateTime=dt,
                     durationStr='30 D',
-                    barSizeSetting='1 hour',
+                    barSizeSetting='30 mins',
                     whatToShow='TRADES',
                     #MIDPOINT-->
                     #TRADES-->
@@ -64,7 +64,7 @@ class Connector():
             else:
                 logging.info("Downloading data...")
                 for data in range(len(bars_from_api)):
-                    """bars_data ={}
+                    bars_data ={}
                     bars_data["TICKER"] = contract.symbol
                     bars_data["DATE"] = bars_from_api[data].date
                     bars_data["OPEN"] = bars_from_api[data].open
@@ -72,29 +72,14 @@ class Connector():
                     bars_data["LOW"] = bars_from_api[data].low
                     bars_data["CLOSE"] = bars_from_api[data].close
                     bars_data["CURRENCY"] = contract.currency
-                    barsList.append(bars_data)"""
-                    DDBB_Manager = BBDDManager(
-                        host= config_data["Database"]["host"],
-                        username = config_data["Database"]["username"],
-                        db_name = config_data["Database"]["db_name"]
-                        )
-                    DDBB_Manager.insert_ohlc_data(
-                                table_name=config_data["Database"]["table_name"],
-                                symbol=contract.symbol,
-                                datetime=bars_from_api[data].date,
-                                open_price=bars_from_api[data].open,
-                                high_price=bars_from_api[data].high,
-                                low_price=bars_from_api[data].low,
-                                close_price=bars_from_api[data].close,
-                                currency=contract.currency
-                                )
-
+                    bars_data["VOLUME"] = bars_from_api[data].volume
+                    barsList.append(bars_data)
         except Exception as e:
             print(e)
         
         return barsList
 
-    """
+"""
     Function: Read Input Excel
     Given a excel path, will return a list of tickers.
     
@@ -102,7 +87,7 @@ class Connector():
     Output: List of Tickers
 
     """
-    def read_input_excel(self, route_excel):
+def read_input_excel(self, route_excel):
         stocks_ticker = []
         try:
             df = pd.read_excel(route_excel)
