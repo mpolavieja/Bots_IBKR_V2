@@ -1,25 +1,40 @@
 import time
 import logging
+import json
 import pandas as pd
 from ib_insync import *
 from Ideas.DataBaseConfig import BBDDManager
+
+
+"""
+Leer Datos del Config File
+"""
+config_file_path = 'Ideas/config.json'
+try:
+    with open(config_file_path, 'r') as config_file:
+        config_data = json.load(config_file)
+except FileNotFoundError:
+    print(f"The config file '{config_file_path}' does not exist.")
+    config_data = {}
+
+
 
 
 #API Connector
 class Connector():
     ib_client = ""
     def __init__(self, host, port, client_TWS, timeout) -> None:
-        print("Connecting to API ...")
+        logging.info("Connecting to API ...")
         while True:
             try:
                 self.ib_client = IB()
-                print("Conectando...")
+                logging.info("Conectando...")
                 self.ib_client.connect(host, port=port, clientId=client_TWS, timeout=timeout)
                 if self.ib_client.isConnected():
-                    print("Bot esta conectado")
+                    logging.info("Bot esta conectado")
                     break
             except Exception as mistake:
-                print(mistake)
+                logging.info(mistake)
     """
     Function: Query Data
     Queries Data via API given a stock, and returns data.
@@ -47,9 +62,9 @@ class Connector():
             if not bars_from_api:
                 print(f"No data found with {str(contract.symbol)}") 
             else:
-                print("Downloading data...")
+                logging.info("Downloading data...")
                 for data in range(len(bars_from_api)):
-                    bars_data ={}
+                    """bars_data ={}
                     bars_data["TICKER"] = contract.symbol
                     bars_data["DATE"] = bars_from_api[data].date
                     bars_data["OPEN"] = bars_from_api[data].open
@@ -57,7 +72,23 @@ class Connector():
                     bars_data["LOW"] = bars_from_api[data].low
                     bars_data["CLOSE"] = bars_from_api[data].close
                     bars_data["CURRENCY"] = contract.currency
-                    barsList.append(bars_data)
+                    barsList.append(bars_data)"""
+                    DDBB_Manager = BBDDManager(
+                        host= config_data["Database"]["host"],
+                        username = config_data["Database"]["username"],
+                        db_name = config_data["Database"]["db_name"]
+                        )
+                    DDBB_Manager.insert_ohlc_data(
+                                table_name=config_data["Database"]["table_name"],
+                                symbol=contract.symbol,
+                                datetime=bars_from_api[data].date,
+                                open_price=bars_from_api[data].open,
+                                high_price=bars_from_api[data].high,
+                                low_price=bars_from_api[data].low,
+                                close_price=bars_from_api[data].close,
+                                currency=contract.currency
+                                )
+
         except Exception as e:
             print(e)
         

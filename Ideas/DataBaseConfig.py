@@ -2,6 +2,13 @@ import mysql.connector
 import logging
 
 
+
+logging.basicConfig()
+logging.root.setLevel(logging.NOTSET)
+
+
+
+
 class BBDDManager():
     cursor = None
     db_connection = None
@@ -12,7 +19,7 @@ class BBDDManager():
     db_name = None
 
     def __init__(self, host, username, db_name) -> None:
-        logging.info("Connecting to BBDD Server ...")
+        #logging.info("Connecting to BBDD Server ...")
         self.host = host
         self.username = username
         self.db_name = db_name
@@ -25,7 +32,7 @@ class BBDDManager():
             self.cursor.execute(f"CREATE DATABASE IF NOT EXISTS {db_name}")
             self.cursor.execute(f"USE {db_name}")
             self.connection_succeed = True
-            logging.info("Connection Succesful")
+            #logging.info("Connection Succesful")
 
             table_name = "OHLC_Data_IBKR"
             create_table_query = f"""
@@ -42,7 +49,7 @@ class BBDDManager():
                                 """
             
             self.cursor.execute(create_table_query)
-            logging.info(f"Tabla creada: {table_name}")
+            #logging.info(f"Tabla creada: {table_name}")
             
         except  mysql.connector.Error as e:
             logging.info("Error connecting with BBDD Server")
@@ -69,6 +76,30 @@ class BBDDManager():
 
 
     """
+
+
+    def insert_ohlc_data_v2(self, table_name, data_list):
+        try:
+            connection = mysql.connector.connect(
+                host=self.host,
+                user=self.username,
+                database=self.db_name
+            )
+            if connection.is_connected():
+                with connection, connection.cursor() as cursor:
+                    sql = f"INSERT INTO {table_name} (symbol, datetime, open, high, low, close, currency) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+                    batch_size = 1000  # Adjust the batch size as needed
+                    for i in range(0, len(data_list), batch_size):
+                        batch_data = data_list[i:i + batch_size]
+                        cursor.executemany(sql, batch_data)
+                connection.commit()
+                logging.info("OHLC data inserted successfully.")
+        except mysql.connector.Error as e:
+            logging.error(f"Error inserting OHLC data: {e}")
+        finally:
+            if 'connection' in locals():
+                connection.close()
+
     def insert_ohlc_data(self, table_name, symbol, datetime, open_price, high_price, low_price, close_price, currency):  
         connection = mysql.connector.connect(
             host=self.host,
@@ -84,7 +115,10 @@ class BBDDManager():
                 values = (symbol, datetime, open_price, high_price, low_price, close_price, currency)
                 cursor.execute(sql, values)
                 connection.commit()
-                logging.info("OHLC data inserted successfully.")
+                #logging.info("OHLC data inserted successfully.")
         except mysql.connector.Error as e:
             logging.error(f"Error inserting OHLC data: {e}")
+        finally:
+            if 'connection' in locals():
+                connection.close()
                 

@@ -9,9 +9,6 @@ from Ideas.DataBaseConfig import BBDDManager
 from Ideas.DataDownload import Connector
 
 
-"""
-Leer Datos del Config File
-"""
 config_file_path = 'Ideas/config.json'
 try:
     with open(config_file_path, 'r') as config_file:
@@ -23,15 +20,12 @@ except FileNotFoundError:
 
 
 
+
+
+
 if __name__ == "__main__":
 
 
-    DDBB_Manager = BBDDManager(
-        host= config_data["Database"]["host"],
-        username = config_data["Database"]["username"],
-        db_name = config_data["Database"]["db_name"]
-        )
-    
 
     DataDownloader = Connector(
         host = config_data["APIDataConnection"]["host"],
@@ -48,9 +42,15 @@ if __name__ == "__main__":
     tickers = DataDownloader.read_input_excel(path_to_excel)
 
     for ticker in tickers:
+        
         bars_for_ticker = DataDownloader.query_data(ticker)
         for data in bars_for_ticker:
-            DDBB_Manager.insert_ohlc_data(
+            DDBB_Manager = BBDDManager(
+                host= config_data["Database"]["host"],
+                username = config_data["Database"]["username"],
+                db_name = config_data["Database"]["db_name"]
+                )
+            DDBB_Manager.insert_ohlc_data_v2(
                                 table_name=config_data["Database"]["table_name"],
                                 symbol=data["TICKER"],
                                 datetime=data["DATE"],
